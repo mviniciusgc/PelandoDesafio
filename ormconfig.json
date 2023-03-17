@@ -1,0 +1,10 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": "5432",
+  "username": "postgres",
+  "password": "123456",
+  "database": "desafio-pelando",
+  "entities": ["./src/infra/models/*.ts"],
+  "migrations": ["./src/shared/infra/typeorm/migrations/*.{js,ts}"]
+}
