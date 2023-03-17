@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  db:
+    container_name: postgres-article
+    image: postgres
+    environment:
+      MYSQL_ROOT_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_DB: desafio-pelando
+    volumes: [ './db.sql:/docker-entrypoint-initdb.d/db.sql' ]
+    restart: always
+    ports:
+      - 5432:5432 
+
+
+
+      
