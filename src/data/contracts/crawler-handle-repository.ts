@@ -6,6 +6,7 @@ export namespace CrawlerHandleRepository {
   export type CrawlerModel = {
     price: string
     title: string
+    img: string
     description: string
   }
 }
