@@ -5,7 +5,6 @@ services:
     container_name: postgres-article
     image: postgres
     environment:
-      MYSQL_ROOT_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: '123456'
       POSTGRES_DB: desafio-pelando
