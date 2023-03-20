@@ -3,20 +3,22 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  Timestamp
+  PrimaryGeneratedColumn
 } from 'typeorm'
 
 @Entity('promotion')
 export class Promotion {
   @PrimaryGeneratedColumn()
-    id!: number
+    promotion_id!: number
   
   @Column()
     title: string
   
   @Column()
     url: string
+
+  @Column()
+    img: string
   
   @Column('text')
     description: string
@@ -25,8 +27,8 @@ export class Promotion {
     price: string
 
   @CreateDateColumn({ name: 'created_at' })
-    created_at: Timestamp
+    created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-    updated_at: Timestamp
+    updated_at: Date
 }

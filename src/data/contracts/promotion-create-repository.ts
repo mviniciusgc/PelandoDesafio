@@ -4,13 +4,15 @@ export interface PromotionCreateRepository {
 export namespace PromotionCreateRepository {
   export type Params = {
     url: string
+    img: string
     title: string
     preco: string
     descricao: string
   }
 
   export type Result = {
-    link: string
+    url: string
+    img: string
     title: string
     price: string
     description: string

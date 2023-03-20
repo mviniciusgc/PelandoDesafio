@@ -7,7 +7,8 @@ export namespace PromotionCreate {
   }
 
   export type Result = {
-    link: string
+    url: string
+    img: string
     title: string
     price: string
     description: string
