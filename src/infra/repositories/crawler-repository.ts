@@ -53,22 +53,14 @@ const createConfig = async (): Promise<ConfigCrawl> => {
   const page = await browser.newPage()
   page.setDefaultNavigationTimeout(0)
   await page.setViewport({ width: 0, height: 0, deviceScaleFactor: 1 })
-
   return { browser, page }
 }
 
-// const getPriceAndTitle = async (html: string, tagBusine: string): Promise<string> => {
-//   let value
-//   $(tagBusine, html).each(function () {
-//     value = $(this).text()
-//   })
-//   return value
-// }
 const getDescription = async (tagBusine: string, config: ConfigCrawl): Promise<any> => {
   const { page } = config
 
   await page.waitForSelector(tagBusine)
-
+  
   const links = await page.evaluate(tagBusine => {
     const anchor = document.querySelector(tagBusine)
     return anchor.textContent.split('|')[0].trim()
