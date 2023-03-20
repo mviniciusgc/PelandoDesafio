@@ -6,40 +6,40 @@ export enum SitesCrawler {
   Amaro = 'amaro',
   Natura = 'natura',
 }
-enum TagCasasBahia { // funciona
+enum TagCasasBahia {
   Busine = 'CasasBahia',
   Price = '#product-price',
   Title = '.css-1qm1lh > h1',
   Description = '#product-description',
   IMG = '.magnify-container > div > img',
 }
-enum TagPontoFrio { // funciona
+enum TagPontoFrio {
   Busine = 'PontoFrio',
   Price = '#product-price',
   Title = '.css-1qm1lh > h1',
   Description = '#product-description',
   IMG = '.magnify-container > div > img',
 }
-enum TagMagazineluiza { // funciona
+enum TagMagazineluiza {
   Busine = 'MagazineLuiza',
   Price = '[data-testid="price-value"]',
   Title = '[data-testid="heading-product-title"]',
   Description = '[data-testid="rich-content-container"]',
   IMG = '[data-testid="media-gallery"] > div > img',
 }
-enum TagAmaro { // funcionou +-
+enum TagAmaro {
   Busine = 'Amaro',
   Price = '.Prices_value__Ms4je',
   Title = '#productOptions > h1',
   Description = '.Description_apiMessage__7yEuU',
   IMG = '.ProductGalleryGrid_image1__VHCvs > span > img',
 }
-enum TagNatura { /// não funciona o tito e price
+enum TagNatura {
   Busine = 'Natura',
-  Price = '[class="MuiBox-root natds186 natds42 natds185 Price-module__price--2QW3U"] > h6',
-  Title = '[class="MuiBox-root natds165 natds42 natds164 natds148"] > h1',
+  Price = '.Price-module__price--2QW3U > h6',
+  Title = '.MuiTypography-colorTextPrimary',
   Description = '[class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary MuiTypography-alignLeft"]',
-  IMG = '[class="MuiBox-root natds260 natds42 natds259 natds257 natds258"] > img',
+  IMG = '.MuiBox-root > img',
 }
 
 export const tuplaEnumsBusines = async (): Promise<any[]> => {

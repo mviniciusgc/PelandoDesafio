@@ -1,23 +1,22 @@
 
 import { CrawlerHandleRepository } from '@/data/contracts'
-import $ from 'cheerio'
 import puppeteer, { Browser, Page } from 'puppeteer'
 import { SitesCrawler, tuplaEnumsBusines } from '@/infra/enum'
 
 export class CrawlerRepository implements CrawlerHandleRepository {
   async handle (url: string): Promise<CrawlerHandleRepository.CrawlerModel> {
     const config = await createConfig()
-    const html = await crowler(url,config)
+    await crowler(url,config)
 
     const busine = await getBusineForURL(url)
     const tagBusines = await verifyBusines(busine)
 
-    const price = await getPriceAndTitle(html, tagBusines.Price)
+    const price = await getPriceAndTitle(tagBusines.Price, config)
     await new Promise(resolve => setTimeout(resolve, 1000))
-
-    const title = await getPriceAndTitle(html, tagBusines.Title)
+    
+    const title = await getPriceAndTitle(tagBusines.Title, config)
     await new Promise(resolve => setTimeout(resolve, 1000))
-
+    
     const description = await getDescription(tagBusines.Description, config)
     const img = await getImage(tagBusines.IMG ,config)
     await config.browser.close()
@@ -58,14 +57,26 @@ const createConfig = async (): Promise<ConfigCrawl> => {
   return { browser, page }
 }
 
-const getPriceAndTitle = async (html: string, tagBusine: string): Promise<string> => {
-  let value
-  $(tagBusine, html).each(function () {
-    value = $(this).text()
-  })
-  return value
-}
+// const getPriceAndTitle = async (html: string, tagBusine: string): Promise<string> => {
+//   let value
+//   $(tagBusine, html).each(function () {
+//     value = $(this).text()
+//   })
+//   return value
+// }
 const getDescription = async (tagBusine: string, config: ConfigCrawl): Promise<any> => {
+  const { page } = config
+
+  await page.waitForSelector(tagBusine)
+
+  const links = await page.evaluate(tagBusine => {
+    const anchor = document.querySelector(tagBusine)
+    return anchor.textContent.split('|')[0].trim()
+  }, tagBusine)
+
+  return links
+}
+const getPriceAndTitle = async (tagBusine: string, config: ConfigCrawl): Promise<any> => {
   const { page } = config
 
   await page.waitForSelector(tagBusine)
@@ -85,7 +96,6 @@ const getImage = async (tagBusine: string, config: ConfigCrawl): Promise<any> =>
     const anchor = document.querySelector(tagBusine)
     return anchor.getAttribute('src')
   }, tagBusine)
-  console.log(links)
   return links
 }
 const getBusineForURL = async (url: string): Promise<string> => {
@@ -93,7 +103,6 @@ const getBusineForURL = async (url: string): Promise<string> => {
   let indexofTexto = url.indexOf('www.')
 
   indexofTexto = indexofTexto === -1 ? (url.indexOf('//') + 2) : (indexofTexto + 4)
-  console.log(indexofTexto)
   
   return url.substring(indexofTexto,indexofFinal)
 }
