@@ -4,7 +4,8 @@ export class PromotionCreateSpy implements PromotionCreate {
   params: PromotionCreate.Params
   
   result = {
-    link: 'https://www.fake.com.br/cadeira-de-escritorio-giratoria-preta-fortt/',
+    url: 'https://www.fake.com.br/cadeira-de-escritorio-giratoria-preta-fortt/',
+    img: 'https://www.fake.com.br/image/',
     title: 'Celular',
     price: 'R$ 172,99',
     description: 'Sansung galaxy'
