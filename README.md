@@ -10,6 +10,15 @@ O objetivo dessa API é receber uma URL como parâmetro e salvar/retornar alguns
   updated_at: timestamp
 }
 
+# Plataforma aceitas:
+
+* Casas Bahia
+* Magazine Luiza
+* Ponto Frio
+* Natura
+* Amaro
+
+
 <br /><br />
 
 ## Configuração e execução do projeto
@@ -52,3 +61,6 @@ Response:   "title": string
 * Nodemon
 * Module-Alias
 * Reflect-Metadata
+* typeorm
+* puppeteer
+* pg
