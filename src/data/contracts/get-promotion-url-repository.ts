@@ -1,5 +1,3 @@
-import { Timestamp } from 'typeorm'
-
 export interface GetPromotionURLRepository {
   get: (params: GetPromotionURLRepository.Params) => Promise<GetPromotionURLRepository.Result>
 }
@@ -9,12 +7,13 @@ export namespace GetPromotionURLRepository {
   }
 
   export type Result = {
-    id: number
+    promotion_id: number
     title: string
     url: string
+    img: string
     description: string
     price: string
-    created_at: Timestamp
-    updated_at: Timestamp
+    created_at: Date
+    updated_at: Date
   }
 }
