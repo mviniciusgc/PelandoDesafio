@@ -9,22 +9,25 @@ export class PromotionCreateService implements PromotionCreate {
   ) {}
 
   async create (params: PromotionCreate.Params): Promise<PromotionCreate.Result> {
+    let data: number | null
+    data = null
     const promotion = await this.getPromotionURLRepository.get({ url: params.url })
- 
-    if (Object.keys(promotion).length === 0) {
-      const resp = await this.crawlerHandleRepository.handle(params.url)
-      return this.promotionRepository.create({ preco: resp.price, url: params.url, title: resp.title, descricao: resp.description })
+
+    if (Object.keys(promotion).length > 0) {
+      const dataSegundos = new Date(promotion.created_at.toString()).getSeconds()
+      data = new Date().getSeconds() - dataSegundos
     }
-    const dateCreate = new Date(promotion.created_at.toString())
-    const dataLimite = new Date(promotion.created_at.toString())
-    dataLimite.setHours(+1)
-    if (dateCreate > dataLimite) {
-      return {
-        description: promotion.description,
-        link: promotion.url,
-        price: promotion.price,
-        title: promotion.title
-      }
+    
+    if (data === null || (data != null && data > 60)) {
+      const resp = await this.crawlerHandleRepository.handle(params.url)
+      return await this.promotionRepository.create({ preco: resp.price, url: params.url, title: resp.title, descricao: resp.description, img: resp.img })
+    }
+    return {
+      title: promotion.title,
+      price: promotion.price,
+      description: promotion.description,
+      url: promotion.url,
+      img: promotion.img
     }
   }
 }
